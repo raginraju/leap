@@ -1,5 +1,3 @@
-pandas
-numpy
 pickle
-predict_page
 sklearn
+predict_page
