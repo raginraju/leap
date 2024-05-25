@@ -30,14 +30,17 @@ def load_model():
         data = pickle.load(file)
     return data
 
-data = load_model()
 
-regressor = data["model"]
-countriesList = data["countriesList"]
-predictors = data["predictors"]
 
 def show_predict_page():
     X = intializeArray()
+
+    data = load_model()
+
+    regressor = data["model"]
+    countriesList = data["countriesList"]
+    predictors = data["predictors"]
+
     st.title("LEAP Life Expectancy Prediction")
 
     st.write("""### We need some information to predict the result""")
