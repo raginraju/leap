@@ -1,2 +1,3 @@
-sklearn
+sklearn==0.24.1.
+streamlit==1.34.0
 predict_page
