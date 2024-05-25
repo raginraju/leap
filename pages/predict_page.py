@@ -66,4 +66,7 @@ def show_predict_page():
         
         life_exp = regressor.predict(X)
         
-        st.subheader(f"The calculated Life Expectancy is {life_exp[0]:.2f}")
+        st.subheader(f"Selected Country {country} ")
+        st.subheader(f"Selected Year {year} ")
+        st.subheader(f"Selected Population {population} ")
+        st.subheader(f"The calculated Life Expectancy is {life_exp[0]:.2f} ")
