@@ -26,7 +26,7 @@ def intializeArray():
         0.00000000e+00, 0.00000000e+00, 0.00000000e+00]])
 
 def load_model():
-    with open('saved_steps.pkl', 'rb') as file:
+    with open('./saved_steps.pkl', 'rb') as file:
         data = pickle.load(file)
     return data
 
