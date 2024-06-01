@@ -70,3 +70,8 @@ def show_predict_page():
         st.text(f"Selected Year {year} ")
         st.text(f"Selected Population {population} ")
         st.subheader(f"The calculated Life Expectancy is {life_exp[0]:.2f} ")
+
+# Navigation
+st.page_link("app.py", label="Go to Home", icon="🏠")
+
+show_predict_page()
