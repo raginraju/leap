@@ -10,7 +10,6 @@ st.set_page_config(
         'About': "# This is a header. This is an *extremely* cool app!"
     }
 )
-
 import pickle
 from pages.predict_page import show_predict_page
 
@@ -19,25 +18,31 @@ def load_model():
         data = pickle.load(file)
     return data
 
+if 'data' not in st.session_state:
+    st.session_state['data'] = load_model()
+
+
+
 
 def show_landing_page():
 
-    data = load_model()
+    #data = load_model()
     
-    countriesList = data["countriesList"]
-    Recent_data_DF = data["Recent_data_DF"]
+    countriesList = st.session_state.data["countriesList"]
+    Recent_data_DF = st.session_state.data["Recent_data_DF"]
 
     st.title("LEAP Life Expectancy explore")
 
     st.write("""### select the country""")
 
     #inputs
-    country = st.selectbox("Country", countriesList)
+    country1 = st.selectbox("Country", countriesList)
     st.write("Life expectancy of the selected country in 2020 is ")
     
 # Navigation
 st.page_link("pages/predict_page.py", label="Skip to Prediction", icon="🏹")
 
 show_landing_page()
+
 
 

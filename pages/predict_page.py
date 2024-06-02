@@ -35,11 +35,11 @@ def load_model():
 def show_predict_page():
     X = intializeArray()
 
-    data = load_model()
+    data = st.session_state.data
 
-    regressor = data["model"]
-    countriesList = data["countriesList"]
-    predictors = data["predictors"]
+    regressor = st.session_state.data["model"]
+    countriesList = st.session_state.data["countriesList"]
+    predictors = st.session_state.data["predictors"]
 
     st.title("LEAP Life Expectancy Prediction")
 
