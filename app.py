@@ -11,7 +11,7 @@ st.set_page_config(
     }
 )
 import pickle
-from pages.predict_page import show_predict_page
+#from pages.predict_page import show_predict_page
 
 def load_model():
     with open('saved_model.pkl', 'rb') as file: 
@@ -19,9 +19,8 @@ def load_model():
     return data
 
 if 'data' not in st.session_state:
-    st.session_state['data'] = load_model()
-
-
+    data = load_model()
+    st.session_state['data'] = data
 
 
 def show_landing_page():
