@@ -10,40 +10,36 @@ st.set_page_config(
         'About': "# This is a header. This is an *extremely* cool app!"
     }
 )
+
 import pickle
 import pandas as pd
-#from pages.predict_page import show_predict_page
-
-def load_model():
-    with open('saved_model.pkl', 'rb') as file: 
-        data = pickle.load(file)
-    return data
-
-if 'data' not in st.session_state:
-    data = load_model()
-    st.session_state['data'] = data
-
-
-def show_landing_page():
-
-    #data = load_model()
-    
-    countriesList = st.session_state.data["countriesList"]
-    Recent_data = st.session_state.data["Recent_data_DF"]
-    Recent_data_DF = pd.DataFrame(Recent_data)
-
-    st.title("LEAP Life Expectancy explore")
-
-    st.write("""### select the country""")
-
-    #inputs
-    selectedCountry = st.selectbox("Country", countriesList)
-    st.write(Recent_data_DF[Recent_data_DF['country'] == selectedCountry])
     
 # Navigation
 st.page_link("pages/predict_page.py", label="Skip to Prediction", icon="🏹")
 
+#loading Data
+with open('saved_model.pkl', 'rb') as file: 
+    imported_data = pickle.load(file)
+    
+#caching data in to the session
+if 'imported_data' not in st.session_state:
+    st.session_state.imported_data = imported_data
+
 #Page display
+def show_landing_page():
+    
+    st.title("LEAP Life Expectancy explore")
+
+    st.write("""### select the country""")
+    
+    #inputs
+    countriesList = st.session_state.imported_data["countriesList"]
+    selectedCountry = st.selectbox("Country", countriesList)
+    
+    #getting recent data DF from the session
+    Recent_data_DF =pd.DataFrame(st.session_state.imported_data["Recent_data_DF"])
+    st.write(Recent_data_DF[Recent_data_DF['country'] == selectedCountry])
+    
 show_landing_page()
 
 
