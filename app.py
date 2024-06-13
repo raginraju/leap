@@ -11,6 +11,7 @@ st.set_page_config(
     }
 )
 import pickle
+import pandas as pd
 #from pages.predict_page import show_predict_page
 
 def load_model():
@@ -28,19 +29,21 @@ def show_landing_page():
     #data = load_model()
     
     countriesList = st.session_state.data["countriesList"]
-    Recent_data_DF = st.session_state.data["Recent_data_DF"]
+    Recent_data = st.session_state.data["Recent_data_DF"]
+    Recent_data_DF = pd.DataFrame(Recent_data)
 
     st.title("LEAP Life Expectancy explore")
 
     st.write("""### select the country""")
 
     #inputs
-    country1 = st.selectbox("Country", countriesList)
-    st.write("Life expectancy of the selected country in 2020 is ")
+    selectedCountry = st.selectbox("Country", countriesList)
+    st.write(Recent_data_DF[Recent_data_DF['country'] == selectedCountry])
     
 # Navigation
 st.page_link("pages/predict_page.py", label="Skip to Prediction", icon="🏹")
 
+#Page display
 show_landing_page()
 
 
