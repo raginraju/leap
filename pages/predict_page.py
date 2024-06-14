@@ -85,6 +85,7 @@ def show_predict_page():
     ok = st.button("Predict life Expectancy")
     
     if ok:
+        
         #assigning to input array
         #If afghanistan; set all countries to zero
         if (selectedCountry != "Afghanistan"): 
@@ -110,6 +111,9 @@ def show_predict_page():
         #st.text(f"Selected Year {year} ")
         st.text(f"Selected Population {population} ")
         st.subheader(f"The calculated Life Expectancy is {life_exp[0]:.2f} ")
+        
+        #Reset county value to zero after each prediction
+        X = intializeArray()
 
 
 
