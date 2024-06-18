@@ -34,6 +34,14 @@ def load_model():
 # Navigation
 st.page_link("app.py", label="Go to Home", icon="🏠")
 
+#loading Data
+with open('saved_model.pkl', 'rb') as file: 
+    imported_data = pickle.load(file)
+    
+#caching data in to the session
+if 'imported_data' not in st.session_state:
+    st.session_state.imported_data = imported_data
+
 def show_predict_page():
     X = intializeArray()
 
