@@ -117,7 +117,7 @@ def show_predict_page():
         
         #st.text(f"Selected Country {selectedCountry} ")
         #st.text(f"Selected Year {year} ")
-        st.text(f"Selected Population {population} ")
+        #st.text(f"Selected Population {population} ")
         st.subheader(f"The calculated Life Expectancy is {life_exp[0]:.2f} ")
         
         #Reset county value to zero after each prediction
