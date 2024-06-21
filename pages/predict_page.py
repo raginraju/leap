@@ -35,7 +35,7 @@ def load_model():
 st.page_link("app.py", label="Go to Home", icon="🏠")
 
 #loading Data
-@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None})
+@st.cache_data(hash_funcs={"MyUnhashableClass": lambda _: None})
 def load_model():
     with open('saved_model.pkl', 'rb') as file: 
         imported_data = pickle.load(file)
