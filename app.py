@@ -18,7 +18,7 @@ import pandas as pd
 st.page_link("pages/predict_page.py", label="Skip to Prediction", icon="🏹")
 
 #loading Data
-@st.cache_data(hash_funcs={"MyUnhashableClass": lambda _: None})
+@st.cache_resource()
 def load_model():
     with open('saved_model.pkl', 'rb') as file: 
         imported_data = pickle.load(file)
