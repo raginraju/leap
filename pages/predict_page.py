@@ -35,11 +35,14 @@ def load_model():
 st.page_link("app.py", label="Go to Home", icon="🏠")
 
 #loading Data
-with open('saved_model.pkl', 'rb') as file: 
-    imported_data = pickle.load(file)
+@st.cache(hash_funcs={"MyUnhashableClass": lambda _: None})
+def load_model():
+    with open('saved_model.pkl', 'rb') as file: 
+        imported_data = pickle.load(file)
     
 #caching data in to the session
 if 'imported_data' not in st.session_state:
+    imported_data = load_model()
     st.session_state.imported_data = imported_data
 
 def show_predict_page():
