@@ -4,9 +4,9 @@ import numpy as np
 import pandas as pd
 
 def intializeArray():
-    return np.array([[1.98500000e+03, 6.24554200e+06, 6.31222871e-05, 1.04519190e-01,
-        2.63156492e-01, 3.96935618e-01, 3.30483972e-01, 7.65390877e-01,
-        5.34068911e-02, 3.67066458e-01, 0.00000000e+00, 0.00000000e+00,
+    return np.array([[0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+        0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
+        0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
         0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
         0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
         0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
@@ -26,34 +26,33 @@ def intializeArray():
         0.00000000e+00, 0.00000000e+00, 0.00000000e+00, 0.00000000e+00,
         0.00000000e+00, 0.00000000e+00, 0.00000000e+00]])
 
+
+@st.cache_data  # 👈 Add the caching decorator
+def load_data(url):
+    df = pd.read_csv(url)
+    return df
+
+countriesList = load_data('data/countriesList.csv')
+predictors  = load_data('data/predictors.csv')
+Recent_data_DF  = load_data('data/Recent_data_DF.csv')
+#st.dataframe(countriesList)
+#st.dataframe(predictors)
+
+@st.cache_resource
 def load_model():
     with open('saved_model.pkl', 'rb') as file: 
         saved_model = pickle.load(file)
     return saved_model
 
+model = load_model()
+regressor = model["model"]
+
 # Navigation
 st.page_link("app.py", label="Go to Home", icon="🏠")
 
-#loading Data
-@st.cache_resource()
-def load_model():
-    with open('saved_model.pkl', 'rb') as file: 
-        imported_data = pickle.load(file)
-    
-#caching data in to the session
-if 'imported_data' not in st.session_state:
-    imported_data = load_model()
-    st.session_state.imported_data = imported_data
 
 def show_predict_page():
     X = intializeArray()
-
-    data = st.session_state.imported_data
-
-    regressor = st.session_state.imported_data["model"]
-    countriesList = st.session_state.imported_data["countriesList"]
-    predictors = st.session_state.imported_data["predictors"]
-    Recent_data_DF = pd.DataFrame(st.session_state.imported_data["Recent_data_DF"])
 
     st.title("LEAP Life Expectancy Prediction")
 
@@ -101,7 +100,8 @@ def show_predict_page():
         #If afghanistan; set all countries to zero
         if (selectedCountry != "Afghanistan"): 
             countryColName = "country_"+selectedCountry
-            countryIndex = predictors.index(countryColName)
+            countryIndex = predictors[predictors.iloc[:, 0]==countryColName].index
+            #st.text(predictors[predictors.iloc[:, 0]==countryColName].index)
             X[0,countryIndex] = 1
         X[0,0] = year
         X[0,1] = population
