@@ -25,6 +25,7 @@ def load_data(url):
 
 countriesList = load_data('data/countriesList.csv')
 Recent_data_DF  = load_data('data/Recent_data_DF.csv')
+leap_df = load_data('./data/leap_prepared_scaled.csv')
 #st.dataframe(countriesList)
 #st.dataframe(Recent_data_DF)
     
@@ -32,16 +33,18 @@ Recent_data_DF  = load_data('data/Recent_data_DF.csv')
 #Page display
 def show_landing_page():
     
-    st.title("LEAP Life Expectancy explore")
+    st.title("LEAP Life Expectancy ")
 
     st.write("""### select the country""")
     
     #inputs
     selectedCountry = st.selectbox("Country", countriesList)
     
-    #getting recent data DF from the session
-    st.write(Recent_data_DF[Recent_data_DF['country'] == selectedCountry])
+    #data frame
+    #st.write(leap_df[leap_df['country'] == selectedCountry])
     
+    st.line_chart(leap_df[leap_df['country'] == selectedCountry], y='life_expectancy', x='year')
+
 show_landing_page()
 
 
