@@ -25,7 +25,7 @@ Recent_data_DF  = load_data('data/Recent_data_DF.csv')
 
 @st.cache_resource
 def load_model():
-    with open('saved_model.pkl', 'rb') as file: 
+    with open('saved_final_RFParetomodel.pkl', 'rb') as file: 
         saved_model = pickle.load(file)
     return saved_model
 
