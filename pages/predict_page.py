@@ -20,8 +20,7 @@ def load_data(url):
 countriesList = load_data('data/countriesList.csv')
 predictors  = load_data('data/predictors.csv')
 Recent_data_DF  = load_data('data/Recent_data_DF.csv')
-#st.dataframe(countriesList)
-#st.dataframe(predictors)
+
 
 @st.cache_resource
 def load_model():
@@ -47,8 +46,8 @@ def show_predict_page():
     selectedCountry = st.selectbox("Country", countriesList)
     selected_country_data = Recent_data_DF[Recent_data_DF['country'] == selectedCountry]
     
-    recentPopulation = (selected_country_data["population"].iloc[0])
-    population = st.number_input("Population", value=recentPopulation, step=1000.00)
+    # recentPopulation = (selected_country_data["population"].iloc[0])
+    # population = st.number_input("Population", value=recentPopulation, step=1000.00)
 
     recentFixedLineSub = (selected_country_data["fixed_line_subscription_per_hundred_scaled"].iloc[0])
     FixedLineSub = st.number_input("Fixed Line Subscription Per Hundred", value=scaler.reverse_min_max_scaling(recentFixedLineSub,"FIXEDLINE"), step=1.00)
