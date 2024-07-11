@@ -40,13 +40,12 @@ def show_predict_page():
 
     st.title("LEAP Life Expectancy Prediction")
 
-    #st.write("""### We need some information to predict the result""")
 
     #inputs
     selectedCountry = st.selectbox("Country", countriesList)
     selected_country_data = Recent_data_DF[Recent_data_DF['country'] == selectedCountry]
     
-    # recentPopulation = (selected_country_data["population"].iloc[0])
+    recentPopulation = (selected_country_data["population"].iloc[0])
     # population = st.number_input("Population", value=recentPopulation, step=1000.00)
 
     recentFixedLineSub = (selected_country_data["fixed_line_subscription_per_hundred_scaled"].iloc[0])
@@ -81,7 +80,8 @@ def show_predict_page():
     if ok:
         
         #assigning to input array
-        X[0,0] = population
+        #X[0,0] = population
+        X[0,0] = recentPopulation
         X[0,1] = scaler.min_max_scaling(Fat,"FAT")
         X[0,2] = scaler.min_max_scaling(Carb,"CARB") 
         X[0,3] = scaler.min_max_scaling(Fertility,"FERTILITY")
